@@ -132,16 +132,20 @@ void loop()
   int loops_for_print = 0;
   unsigned long last_time_Stamp = 0;
   int16_t count = 0;
-  float frequency = 0;
+  float frequency = 174; //khz
+  float average_frequency = 174; //khz
+  float frequency_difference = 0;
   for(;;){
     pcnt_get_counter_value(PCNT_UNIT_0, &count);
     if(count<= -30000) {
       frequency = calculate_frequency(count, micros(), last_time_Stamp);
       last_time_Stamp = micros();
       pcnt_counter_clear(PCNT_UNIT_0);
+      average_frequency = average_frequency * 0.99 + frequency * 0.01;
+      frequency_difference = average_frequency - frequency;
     }
     if(loops_for_print >= (100000)){
-    Serial.printf("\n Counter %0.3f kHz", frequency);
+    Serial.printf("%0.3f %0.3f %0.3f\n", frequency, average_frequency, frequency_difference);
     loops_for_print = 0;
     }
     loops_for_print++;
