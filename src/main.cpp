@@ -44,7 +44,7 @@ void setup() {
 
 void loop()
 {
-  pcnt_init_channel(PCNT_UNIT_0,4, PCNT_PIN_NOT_USED, PCNT_CHANNEL_0); // Initialize Unit 0 to pin 4
+  pcnt_init_channel(PCNT_UNIT_0,27, PCNT_PIN_NOT_USED, PCNT_CHANNEL_0); // Initialize Unit 0 to pin 4
 
   int loops_for_print = 0;
   unsigned long last_time_Stamp = 0;
