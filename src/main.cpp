@@ -7,6 +7,13 @@ const char * password = "Bosmannen";
 
 AsyncUDP udp;
 
+uint8_t test_value = 10;
+String test_string = "a";
+int counter = 0;
+char my_str[10];
+
+
+
 void setup()
 {
     Serial.begin(115200);
@@ -18,30 +25,17 @@ void setup()
             delay(1000);
         }
     }
-    Serial.println(WiFi.localIP());
 
-    //The server is receiving on port 6309
-    //if(udp.listen(6309)) {
-    /* if(udp.connect(IPAddress(255,255,255,255), 6309)) {
-        Serial.println("UDP connected");
-        udp.onPacket([](AsyncUDPPacket packet) {
-            Serial.print(", From: ");
-            Serial.print(packet.remoteIP());
-            Serial.print(", Data: ");
-            Serial.write(packet.data(), packet.length());
-            Serial.println();
-            //reply to the client
-            packet.printf("Got %u bytes of data", packet.length());
-        });
-        //Send unicast
-        udp.print("Hello Server!");
-    } */
+    Serial.println(WiFi.localIP());
 }
 
 void loop()
 {
-    delay(1000);
+    delay(1);
     //Send broadcast on port 1234
     Serial.print(".");
-    udp.broadcastTo("test", 1234);
+    sprintf(my_str, "%i \n", counter);
+    udp.broadcastTo(my_str,2555);
+
+    counter++;
 }
