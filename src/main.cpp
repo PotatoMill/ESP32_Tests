@@ -1,18 +1,15 @@
 #include <Arduino.h>
 #include "AsyncUDP.h"
 #include <WiFi.h>
+#include "ESPmDNS.h"
 
 const char * ssid = "CompaxNet";
 const char * password = "Bosmannen";
 
 AsyncUDP udp;
 
-uint8_t test_value = 10;
-String test_string = "a";
 int counter = 0;
 char my_str[10];
-
-
 
 void setup()
 {
@@ -27,15 +24,17 @@ void setup()
     }
 
     Serial.println(WiFi.localIP());
+    
+    if(!MDNS.begin("udpTest")){
+        Serial.println("Error starting mDNS");
+    }
 }
 
 void loop()
 {
-    delay(1);
-    //Send broadcast on port 1234
+    delay(10);
     Serial.print(".");
     sprintf(my_str, "%i \n", counter);
     udp.broadcastTo(my_str,2555);
-
     counter++;
 }
