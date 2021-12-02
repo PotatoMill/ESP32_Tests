@@ -1,0 +1,56 @@
+{
+    "fe": "",
+    "fs": "",
+    "g": [
+        {
+            "d": [
+                {
+                    "alarm": 2000,
+                    "fft": false,
+                    "fftSamples": 1024,
+                    "g": true,
+                    "led": false,
+                    "log": true,
+                    "max": 12,
+                    "min": 8,
+                    "t": "Raw data",
+                    "u": "kHz",
+                    "v": "%1",
+                    "w": ""
+                },
+                {
+                    "alarm": 0,
+                    "fft": false,
+                    "fftSamples": 1024,
+                    "g": true,
+                    "led": false,
+                    "log": false,
+                    "max": 12,
+                    "min": 8,
+                    "t": "Filtered data",
+                    "u": "kHz",
+                    "v": "%2",
+                    "w": ""
+                },
+                {
+                    "alarm": 80,
+                    "fft": false,
+                    "fftSamples": 1024,
+                    "g": true,
+                    "led": false,
+                    "log": false,
+                    "max": 200,
+                    "min": 0,
+                    "t": "Processed data",
+                    "u": "",
+                    "v": "%3",
+                    "w": "bar"
+                }
+            ],
+            "t": "Water sensor",
+            "w": ""
+        }
+    ],
+    "s": "",
+    "t": "test_project"
+}
