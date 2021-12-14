@@ -15,6 +15,22 @@
 
 int SENSOR_PIN = 23;
 
+float X0 = 0;
+float X1 = 0;
+float X2 = 0;
+float Y1 = 0;
+float Y2 = 0;
+float level1_out = 0;
+
+float Z0 = 0;
+float Z1 = 0;
+float Z2 = 0;
+float W1 = 0;
+float W2 = 0;
+float level2_out = 0;
+
+float coeficcientsA[5] = {0.0009058341184676572, 0.0018116682369353145, 0.0009058341184676572, 1.8891450759635688, -0.8924764346125686}; //a0, a1, a2, b1, b2
+float coeficcientsB[5] = {0.0009765625, 0.001953125, 0.0009765625, 1.916498108467489, -0.9207467227994544}; //c0, c1, c2, d1, d2
 
 const char * ssid = "CompaxNet";
 const char * password = "Bosmannen";
@@ -77,21 +93,40 @@ void loop()
   int loops_for_print = 0;
   unsigned long last_time_Stamp = 0;
   int16_t count = 0;
-  float frequency = 174; //khz
-  float average_frequency = 174; //khz
+  float raw_frequency= 174; //khz
+  float filtered_frequency = 174; //khz
+  float filtered_frequency_light = 0;
   float frequency_difference = 0;
+  float level2_difference = 0;
   for(;;){
     pcnt_get_counter_value(PCNT_UNIT_0, &count);
-    if(count<= -3000) {
-      frequency = calculate_frequency(count, micros(), last_time_Stamp);
+    if(count<= -170) {
+      raw_frequency= calculate_frequency(count, micros(), last_time_Stamp);
       last_time_Stamp = micros();
       pcnt_counter_clear(PCNT_UNIT_0);
-      average_frequency = average_frequency * 0.99 + frequency * 0.01;
-      frequency_difference = average_frequency - frequency;
+      filtered_frequency = filtered_frequency * 0.99 + raw_frequency* 0.01;
+      filtered_frequency_light = filtered_frequency_light * 0.9 + raw_frequency* 0.1;
+      frequency_difference = filtered_frequency - raw_frequency ;
+      level2_difference = level2_out - filtered_frequency_light ;
       frequency_difference = frequency_difference * frequency_difference * 100;
+      level2_difference = level2_difference * level2_difference * 100;
+
+      X0 = raw_frequency;
+      level1_out = coeficcientsA[0] * X0 + coeficcientsA[1] * X1 + coeficcientsA[2] * X2 + coeficcientsA[3] * Y1 + coeficcientsA[4] * Y2 ;
+      X1 = X0;
+      X2 = X1;
+      Y1 = level1_out;
+      Y2 = Y1;
+
+      Z0 = level1_out;
+      level2_out = coeficcientsB[0] * Z0 + coeficcientsB[1] * Z1 + coeficcientsB[2] * Z2 + coeficcientsB[3] * W1 + coeficcientsB[4] * W2 ;
+      Z1 = Z0;
+      Z2 = Z1;
+      W1 = level2_out;
+      W2 = W1;
     }
     if(loops_for_print >= (1000000)){
-    sprintf(message_str, "/*%0.3f,%0.3f,%0.1f*/ \n", frequency, average_frequency, frequency_difference);
+    sprintf(message_str, "/*%0.3f,%0.3f,%0.3f,%0.1f,%0.1f*/ \n", raw_frequency, filtered_frequency, level2_out, frequency_difference, level2_difference);
      udp.broadcastTo(message_str,2555);
     Serial.print(message_str);
     loops_for_print = 0;
