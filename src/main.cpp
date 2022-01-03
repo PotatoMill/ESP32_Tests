@@ -100,7 +100,7 @@ void loop()
   float level2_difference = 0;
   for(;;){
     pcnt_get_counter_value(PCNT_UNIT_0, &count);
-    if(count<= -170) {
+    if(count<= -1700) {
       raw_frequency= calculate_frequency(count, micros(), last_time_Stamp);
       last_time_Stamp = micros();
       pcnt_counter_clear(PCNT_UNIT_0);
