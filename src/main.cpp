@@ -105,7 +105,7 @@ void loop()
       last_time_Stamp = micros();
       pcnt_counter_clear(PCNT_UNIT_0);
       filtered_frequency = filtered_frequency * 0.99 + raw_frequency* 0.01;
-      filtered_frequency_light = filtered_frequency_light * 0.9 + raw_frequency* 0.1;
+      filtered_frequency_light = filtered_frequency_light * 0.95 + raw_frequency* 0.05;
       frequency_difference = filtered_frequency - raw_frequency ;
       level2_difference = level2_out - filtered_frequency_light ;
       frequency_difference = frequency_difference * frequency_difference * 100;
