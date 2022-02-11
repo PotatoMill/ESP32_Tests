@@ -32,7 +32,7 @@ void setup()
 
 void loop()
 {
-    delay(10);
+    delay(100);
     Serial.print(".");
     sprintf(my_str, "/*%i*/", counter);
     udp.broadcastTo(my_str,2555);
