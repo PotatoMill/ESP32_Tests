@@ -70,14 +70,14 @@ void setup() {
   Serial.begin(115200);
 
   Serial.begin(115200);
-    WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
-    if (WiFi.waitForConnectResult() != WL_CONNECTED) {
-        Serial.println("WiFi Failed");
-        while(1) {
-            delay(1000);
-        }
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  if (WiFi.waitForConnectResult() != WL_CONNECTED) {
+    Serial.println("WiFi Failed");
+    while(1) {
+      delay(1000);
     }
+  }
 
     Serial.println(WiFi.localIP());
     
@@ -127,7 +127,7 @@ void loop()
     }
     if(loops_for_print >= (1000000)){
     sprintf(message_str, "/*%0.3f,%0.3f,%0.3f,%0.1f,%0.1f*/ \n", raw_frequency, filtered_frequency, level2_out, frequency_difference, level2_difference);
-     udp.broadcastTo(message_str,2555);
+    udp.broadcastTo(message_str,2555);
     Serial.print(message_str);
     loops_for_print = 0;
     }
