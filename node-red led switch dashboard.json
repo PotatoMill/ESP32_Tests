@@ -1,0 +1,116 @@
+[
+    {
+        "id": "c529b1b71ba30e5b",
+        "type": "tab",
+        "label": "TCP Client Led Switch",
+        "disabled": false,
+        "info": "Sets up a TCP client that writes turns a led on and off on the ESP32 by sending TCP commands\n",
+        "env": []
+    },
+    {
+        "id": "a4b3562b2ba81b3b",
+        "type": "ui_switch",
+        "z": "c529b1b71ba30e5b",
+        "name": "",
+        "label": "LED switch",
+        "tooltip": "Toggle LED on and off",
+        "group": "1d65f2317f782eae",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "payload",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "pinlow",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "pinhigh",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 430,
+        "y": 760,
+        "wires": [
+            [
+                "2baad07deaee5e29",
+                "4a78643f06a23f1f"
+            ]
+        ]
+    },
+    {
+        "id": "2baad07deaee5e29",
+        "type": "tcp request",
+        "z": "c529b1b71ba30e5b",
+        "name": "",
+        "server": "NODETEST.local",
+        "port": "8088",
+        "out": "char",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "tls": "",
+        "x": 700,
+        "y": 760,
+        "wires": [
+            [
+                "723bb5a8c104fd5e"
+            ]
+        ]
+    },
+    {
+        "id": "723bb5a8c104fd5e",
+        "type": "debug",
+        "z": "c529b1b71ba30e5b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "4a78643f06a23f1f",
+        "type": "debug",
+        "z": "c529b1b71ba30e5b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "1d65f2317f782eae",
+        "type": "ui_group",
+        "name": "Basic Dashboard Group",
+        "tab": "97dc7ecc282f8e57",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "97dc7ecc282f8e57",
+        "type": "ui_tab",
+        "name": "Home Dashboard Tab",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
