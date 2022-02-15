@@ -1,5 +1,11 @@
+//følger denne guiden http://www.iotsharing.com/2017/05/tcp-udp-ip-with-esp32.html
+//setter opp en server på ESP32en også ser etter klienter.
+//hvis en klient kobler seg på og sender en melding så printer den ut meldingen
+//bruker node red i dette tilfellet til å koble opp til ESP32en
+
 #include <Arduino.h>
 #include <WiFi.h>
+#include "ESPmDNS.h"
 const char* ssid     = "CompaxNet";
 const char* password = "Bosmannen";
 /* create a server and listen on port 8088 */
@@ -19,6 +25,10 @@ void setup()
     Serial.println("");
     Serial.println("WiFi connected with IP address: ");
     Serial.println(WiFi.localIP());
+
+    if(!MDNS.begin("NODETEST")){
+      Serial.println("Error starting mDNS");
+    }
     /* start Server */
     server.begin();
 }
