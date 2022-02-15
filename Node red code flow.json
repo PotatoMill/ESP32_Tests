@@ -1,0 +1,54 @@
+[
+    {
+        "id": "c529b1b71ba30e5b",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "84b8deb9f4e11dce",
+        "type": "inject",
+        "z": "c529b1b71ba30e5b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Hello World",
+        "payloadType": "str",
+        "x": 490,
+        "y": 460,
+        "wires": [
+            [
+                "9dbcff3c644207c8"
+            ]
+        ]
+    },
+    {
+        "id": "9dbcff3c644207c8",
+        "type": "tcp out",
+        "z": "c529b1b71ba30e5b",
+        "name": "",
+        "host": "NODETEST.local",
+        "port": "8088",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 800,
+        "y": 460,
+        "wires": []
+    }
+]
